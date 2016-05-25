@@ -21,6 +21,7 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "velocity": "^0.7.2",
+    "velocity-animate": "^1.2.3",
     "webpack": "^1.13.1"
   }
 }
