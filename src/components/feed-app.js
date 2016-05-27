@@ -4,6 +4,7 @@ import _ from 'lodash';
 import PostItem from '../components/post-item';
 import Mobx from 'mobx';
 import {observer} from "mobx-react";
+import Infinite from "react-infinite";
 window.PostsManager = PostsManager;
 
 var DummyServer = require('../dummy-server.js').DummyServer;
@@ -23,10 +24,13 @@ var DummyServer = require('../dummy-server.js').DummyServer;
             <div className="app-root">
                 <h1>
                     Posts
-                    <button onClick={this._onAddPostButtonClick}>Push Post</button>
                 </h1>
-                <div>
-                    {this._renderPosts() }
+                <br/>
+                <button onClick={this._onAddPostButtonClick}>Push Post</button>
+                <div className="feed-container">
+                    <Infinite containerHeight={200} elementHeight={16}>
+                        {this._renderPosts() }
+                    </Infinite>
                 </div>
             </div>
         )
@@ -40,6 +44,7 @@ var DummyServer = require('../dummy-server.js').DummyServer;
 
     _renderPosts() {
         //TODO: Find better way to reverse order so new posts render at top, this feels hackey.
+        //TODO:
         return _.reverse(_.map(PostsManager.getInstance().getPosts(), function (post, id) {
             return <PostItem key= {id} post={post}/>
         }))

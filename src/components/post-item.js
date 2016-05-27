@@ -14,9 +14,9 @@ export default class PostItem extends React.Component{
     }
 
     render() {
-        return <div class="post-item" ref={(root) => {this._root = root;}}>
-            <div class="avatar-placeholder"></div>
-            <span class="profile-details-text">{this.props.post.firstName}{this.props.post.lastName}</span>
+        return <div className="post-item" ref={(root) => {this._root = root;}}>
+            <div className="avatar-placeholder"></div>
+            <span className="profile-details-text">{this.props.post.firstName}{this.props.post.lastName}</span>
         </div>
     }
 
