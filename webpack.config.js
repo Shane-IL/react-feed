@@ -6,10 +6,12 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.js?$/,
                 loader: 'babel-loader',
+                exclude: /nose_modules/,
                 query: {
-                    presets: ['es2015', 'react']
+                    plugins: ['transform-decorators-legacy' ],
+                    presets: ['es2015', 'react', 'stage-0']
                 }
             }
         ]

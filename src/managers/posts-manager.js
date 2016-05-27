@@ -1,5 +1,4 @@
 var DummyServer = require('../dummy-server.js').DummyServer;
-var data = DummyServer.generatePostData(5);
 var  Mobx  =  require('mobx');
 
 export default class PostsManager
@@ -17,7 +16,7 @@ export default class PostsManager
     }
 
     constructor() {
-        this.PostsData = Mobx.map({data});
+        this.PostsData = Mobx.map({});
     }
 
     addPost(id, data) {

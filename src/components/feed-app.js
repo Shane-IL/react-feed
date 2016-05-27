@@ -1,13 +1,14 @@
-import React from 'react'
-import PostsManager from '../managers/posts-manager'
-import _ from 'lodash'
-import PostItem from '../components/post-item'
+import React from 'react';
+import PostsManager from '../managers/posts-manager';
+import _ from 'lodash';
+import PostItem from '../components/post-item';
+import Mobx from 'mobx';
+import {observer} from "mobx-react";
 window.PostsManager = PostsManager;
 
 var DummyServer = require('../dummy-server.js').DummyServer;
 
-
-export default class FeedApp extends React.Component{
+@observer export default class FeedApp extends React.Component{
 
     getInitialState() {
         var postsManager = PostsManager.getInstance();
@@ -38,10 +39,10 @@ export default class FeedApp extends React.Component{
     }
 
     _renderPosts() {
-        //TODO: Adapt to map data from model to post item
-        return _.map(PostsManager.getInstance().getPosts(), function (post, id) {
-            return <PostItem post={post}/>
-        })
+        //TODO: Find better way to reverse order so new posts render at top, this feels hackey.
+        return _.reverse(_.map(PostsManager.getInstance().getPosts(), function (post, id) {
+            return <PostItem key= {id} post={post}/>
+        }))
     }
 
 
