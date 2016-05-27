@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -d --watch",
+    "dev-inline": "webpack-dev-server --content-base src --inline --hot",
     "build": "webpack -p"
   },
   "repository": {
@@ -15,15 +16,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "mobx": "^2.2.0",
-    "mobx-react": "^3.3.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "velocity": "^0.7.2",
-    "velocity-animate": "^1.2.3",
-    "webpack": "^1.13.1"
+    "jquery": "^2.2.3",
+    "lodash": "4.11.2",
+    "babel-loader": "6.2.4",
+    "babel-preset-es2015": "6.9.0",
+    "babel-preset-react": "6.5.0",
+    "mobx": "2.2.0",
+    "mobx-react": "3.3.0",
+    "react": "15.1.0",
+    "react-dom": "15.1.0",
+    "velocity": "0.7.2",
+    "velocity-animate": "1.2.3",
+    "webpack": "1.13.1",
+    "webpack-dev-server" : "1.14.1"
   }
 }

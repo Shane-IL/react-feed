@@ -1,4 +1,4 @@
-var $ = require('jquery');
+import $ from 'jquery'
 
 module.exports.DummyServer = new function () {
     var _totalCount = 0;

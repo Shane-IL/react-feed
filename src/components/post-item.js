@@ -1,29 +1,31 @@
 var React = require('react');
+import Velocity from 'velocity-animate';
 
-module.exports.PostItem = React.createClass({
+export default class PostItem extends React.Component{
 
-    componentDidMount: function () {
+    componentDidMount() {
         Velocity(this._root, "fadeIn", { duration: 500 });
-    },
+    }
 
-    shouldComponentUpdate: function (nextProps) {
+    shouldComponentUpdate(nextProps) {
         //TODO: maybe add test case so item with same id as existing item cant be added
         return true;
-    },
+    }
 
-    componentDidUpdate: function () {
+    componentDidUpdate() {
         //TODO: customize to some kind of border animation if adding editing logic
         $(this._root).css({
             backgroundColor: 'red'
         });
 
         Velocity(this._root, {backgroundColorAlpha: 0}, { duration: 500 });
-    },
-
-    render: function () {
-        return <div ref={(root) => {
-                    this._root = root;
-                    }}>{}</div>
     }
 
-});
+    render() {
+        return <div class="post-item" ref={(root) => {this._root = root;}}>
+            <div class="avatar-placeholder"></div>
+            <span class="profile-details-text">{this.props.firstName}{this.props.lastName}</span>
+        </div>
+    }
+
+};

@@ -1,8 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Velocity = require('velocity-animate');
-var FeedApp = require('./components/feed-app.js').FeedApp;
-var PostItem = require('./components/post-item.js').PostItem;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import FeedApp from './components/feed-app'
 
-ReactDOM.render(<FeedApp></FeedApp>, document.getElementById('app'));
+
+
+ReactDOM.render(<FeedApp/>, document.getElementById('app'));
 

@@ -1,24 +1,25 @@
-import PostsManager from '../managers/posts-manager.js'
+import React from 'react'
+import PostsManager from '../managers/posts-manager'
+import _ from 'lodash'
+import PostItem from '../components/post-item'
 window.PostsManager = PostsManager;
 
-var React = require('react');
-var _ = require('lodash');
 var DummyServer = require('../dummy-server.js').DummyServer;
 
 
-module.exports.FeedApp = React.createClass({
+export default class FeedApp extends React.Component{
 
-    getInitialState: function () {
+    getInitialState() {
         var postsManager = PostsManager.getInstance();
         var postsData = postsManager.getPosts();
         return {
             postsData: postsData
         }
-    },
+    }
 
-    render: function () {
+    render() {
         return (
-            <div className="my-root">
+            <div className="app-root">
                 <h1>
                     Posts
                     <button onClick={this._onAddPostButtonClick}>Push Post</button>
@@ -28,20 +29,20 @@ module.exports.FeedApp = React.createClass({
                 </div>
             </div>
         )
-    },
+    }
 
-    _onAddPostButtonClick: function () {
+    _onAddPostButtonClick() {
         var postsManager = PostsManager.getInstance();
         var newPost = DummyServer.generatePostData(1)[0];
         postsManager.addPost(newPost.id, newPost);
-    },
+    }
 
-    _renderPosts: function () {
+    _renderPosts() {
         //TODO: Adapt to map data from model to post item
-        //return _.map(PostsManager.getInstance().getPosts(), function (post, id) {
-        //    return <PostItem id={id} post={post}></PostItem>
-        //})
+        return _.map(PostsManager.getInstance().getPosts(), function (post, id) {
+            return <PostItem post={post}/>
+        })
     }
 
 
-});
+};
