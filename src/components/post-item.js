@@ -1,4 +1,6 @@
-module.exports = PostItem = React.createClass({
+var React = require('react');
+
+module.exports.PostItem = React.createClass({
 
     componentDidMount: function () {
         Velocity(this._root, "fadeIn", { duration: 500 });

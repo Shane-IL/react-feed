@@ -1,15 +1,22 @@
-module.exports = FeedApp = React.createClass({
+import PostsManager from '../managers/posts-manager.js'
+window.PostsManager = PostsManager;
+
+var React = require('react');
+var _ = require('lodash');
+var DummyServer = require('../dummy-server.js').DummyServer;
+
+
+module.exports.FeedApp = React.createClass({
 
     getInitialState: function () {
+        var postsManager = PostsManager.getInstance();
+        var postsData = postsManager.getPosts();
         return {
-            numberOfItems: 5
+            postsData: postsData
         }
     },
 
     render: function () {
-
-        var i = 3;
-
         return (
             <div className="my-root">
                 <h1>
@@ -24,11 +31,13 @@ module.exports = FeedApp = React.createClass({
     },
 
     _onAddPostButtonClick: function () {
-        //TODO: With dummy server get the post, eventually this func will listen for push from server instead of button click
+        var postsManager = PostsManager.getInstance();
+        var newPost = DummyServer.generatePostData(1)[0];
+        postsManager.addPost(newPost.id, newPost);
     },
 
     _renderPosts: function () {
-        //TODO: Adapt to map data from "server" to post item
+        //TODO: Adapt to map data from model to post item
         //return _.map(PostsManager.getInstance().getPosts(), function (post, id) {
         //    return <PostItem id={id} post={post}></PostItem>
         //})

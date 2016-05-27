@@ -1,5 +1,8 @@
-var DummyServer = new function () {
+var $ = require('jquery');
+
+module.exports.DummyServer = new function () {
     var _totalCount = 0;
+    var _collection = [];
     var _namePool = {names:[
         "Bob","Jim","Ned","Bill","Tim","Joe","Johnny","Simon"   
     ],
@@ -9,15 +12,19 @@ var DummyServer = new function () {
     
     
     this.generatePostData = function (num) {
-        var data = {};
+        var newItems = [];
         for(var i =0; i < num; i++){
             _totalCount++;
-            data[_totalCount] =  {
-                id: _totalCount,
-                firstName: _namePool.names[Math.floor((Math.random() * _namePool.names.length+1))],
-                lastName: _namePool.surnames[Math.floor((Math.random() * _namePool.surnames.length+1))]
-            }
+            newItems.push({
+                id: "Post"+_totalCount,
+                firstName: _namePool.names[Math.floor(Math.random() * _namePool.names.length)],
+                lastName: _namePool.surnames[Math.floor(Math.random() * _namePool.surnames.length)]
+            });
         }
+        $.each(newItems, function (i, item) {
+            _collection.push(item)
+        });
+        return newItems;
 
     }
 }();
