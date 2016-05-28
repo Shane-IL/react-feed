@@ -48,7 +48,7 @@ var socket;
             <div className="feed-container">
                 <button onClick={this._onAddPostButtonClick}>Push Post</button>
                 <br/>
-                <Infinite containerHeight={200} elementHeight={16}>
+                <Infinite containerHeight={310} elementHeight={62}>
                     {this._renderPosts() }
                 </Infinite>
             </div>

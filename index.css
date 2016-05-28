@@ -1,0 +1,13 @@
+.post-item
+{
+    border: 1px solid black;
+    height: 60px;
+}
+
+.avatar-placeholder{
+    display: inline-block;
+}
+
+.profile-text{
+    display: inline-block;
+}

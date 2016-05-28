@@ -205,7 +205,7 @@
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
 	                    _reactInfinite2.default,
-	                    { containerHeight: 200, elementHeight: 16 },
+	                    { containerHeight: 310, elementHeight: 62 },
 	                    this._renderPosts()
 	                )
 	            );
@@ -43031,15 +43031,31 @@
 	                    { to: linkStr },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'avatar-placeholder' },
-	                        _react2.default.createElement('img', { src: currentPost.avatar })
-	                    ),
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'profile-details-text' },
-	                        currentPost.firstName,
-	                        ' ',
-	                        currentPost.lastName
+	                        { className: 'profile-details' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'avatar-placeholder' },
+	                            _react2.default.createElement('img', { src: currentPost.avatar })
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'profile-text' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'firstName' },
+	                                'Name: ',
+	                                currentPost.firstName,
+	                                ' ',
+	                                currentPost.lastName
+	                            ),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'firstName' },
+	                                'Age: ',
+	                                currentPost.age
+	                            )
+	                        )
 	                    )
 	                )
 	            );
