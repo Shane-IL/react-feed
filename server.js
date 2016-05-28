@@ -27,22 +27,20 @@ var _totalCount = _collection.length;
 
 io.on('connection', function(socket){
     console.log('client app connected');
-    socket.on('generatePost', function (num) {
-        for(var i =0; i < num; i++){
-            _totalCount++;
-            var newPost = {
-                id: "Post"+_totalCount,
-                firstName: _namePool.names[Math.floor(Math.random() * _namePool.names.length)],
-                lastName: _namePool.surnames[Math.floor(Math.random() * _namePool.surnames.length)]
-            };
-            _collection.push(newPost);
-            socket.emit('newPost', newPost);
-            console.log('post added:');
-        }
+    socket.on('generatePost', function () {
+        _totalCount++;
+        var newPost = {
+            id: "Post"+_totalCount,
+            firstName: _namePool.names[Math.floor(Math.random() * _namePool.names.length)],
+            lastName: _namePool.surnames[Math.floor(Math.random() * _namePool.surnames.length)]
+        };
+        _collection.push(newPost);
+        socket.emit('newPost', newPost);
+        console.log('post added:');
     });
 
     socket.on('pullCollection', function () {
-        socket.emit('initCollection', _collection);;
+        socket.emit('initCollection', _collection);
     });
 });
 

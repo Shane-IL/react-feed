@@ -1,4 +1,5 @@
-import $ from 'jquery'
+import $ from 'jquery';
+import { Link } from 'react-router';
 import React from 'react';
 import Velocity from 'velocity-animate';
 
@@ -14,12 +15,16 @@ export default class PostItem extends React.Component{
     }
 
     render() {
+        var currentPost = this.props.post;
+        var linkStr = "profile/"+currentPost.id;
         return <div className="post-item" ref={(root) => {this._root = root;}}>
-            <div className="avatar-placeholder">
-                <img src={this.props.post.avatar} />
-            </div>
-            <span className="profile-details-text">{this.props.post.firstName} {this.props.post.lastName}</span>
-        </div>
+                    <Link to={linkStr}>
+                        <div className="avatar-placeholder">
+                            <img src={currentPost.avatar} />
+                        </div>
+                        <span className="profile-details-text">{currentPost.firstName} {currentPost.lastName}</span>
+                    </Link>
+                </div>
     }
 
 };

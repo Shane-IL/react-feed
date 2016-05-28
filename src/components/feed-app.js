@@ -2,7 +2,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import {observer} from "mobx-react";
 import Infinite from "react-infinite";
-import io from 'socket.io-client/socket.io'
+import io from 'socket.io-client/socket.io';
 import Mobx from 'mobx';
 import PostItem from '../components/post-item';
 import PostsManager from '../managers/posts-manager';
@@ -16,19 +16,22 @@ var socket;
     componentDidMount() {
         socket = io.connect('http://localhost:8080');
 
-        socket.emit('pullCollection');
+        socket.on('connect', function(){
+            console.log('feed connected');
+            socket.emit('pullCollection');
 
-        socket.on('newPost', function (newPost) {
-            console.log(newPost);
-            var postsManager = PostsManager.getInstance();
-            postsManager.addPost(newPost.id, newPost);
-        });
+            socket.on('newPost', function (newPost) {
+                console.log(newPost);
+                var postsManager = PostsManager.getInstance();
+                postsManager.addPost(newPost.id, newPost);
+            });
 
-        socket.on('initCollection', function (collection) {
-            var postsManager = PostsManager.getInstance();
-            $.each(collection, function (i, post) {
-                postsManager.addPost(post.id, post);
-            })
+            socket.on('initCollection', function (collection) {
+                var postsManager = PostsManager.getInstance();
+                $.each(collection, function (i, post) {
+                    postsManager.addPost(post.id, post);
+                })
+            });
         });
     }
 
@@ -42,23 +45,18 @@ var socket;
 
     render() {
         return (
-            <div className="app-root">
-                <h1>
-                    Posts
-                </h1>
-                <br/>
+            <div className="feed-container">
                 <button onClick={this._onAddPostButtonClick}>Push Post</button>
-                <div className="feed-container">
-                    <Infinite containerHeight={200} elementHeight={16}>
-                        {this._renderPosts() }
-                    </Infinite>
-                </div>
+                <br/>
+                <Infinite containerHeight={200} elementHeight={16}>
+                    {this._renderPosts() }
+                </Infinite>
             </div>
         )
     }
 
     _onAddPostButtonClick() {
-        socket.emit('generatePost', 1);
+        socket.emit('generatePost');
     }
 
     _renderPosts() {
