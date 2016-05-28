@@ -1,6 +1,6 @@
 import FeedApp from './components/feed-app';
-import Main from './components/main';
-import ProfileView from './components/profile-view';
+import Main from './views/main-view';
+import ProfileView from './views/profile-view';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory} from "react-router";

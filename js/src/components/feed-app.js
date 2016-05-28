@@ -2,12 +2,10 @@ import $ from 'jquery';
 import _ from 'lodash';
 import {observer} from "mobx-react";
 import Infinite from "react-infinite";
-import io from 'socket.io-client/socket.io';
+import io from '../../../node_modules/socket.io-client/socket.io'
 import Mobx from 'mobx';
 import PostItem from '../components/post-item';
-import PostsManager from '../managers/posts-manager';
 import React from 'react';
-window.PostsManager = PostsManager;
 
 var socket;
 
@@ -21,9 +19,13 @@ var socket;
             socket.emit('pullCollection');
 
             socket.on('newPost', function (newPost) {
-                console.log(newPost);
-                var postsManager = PostsManager.getInstance();
-                postsManager.addPost(newPost.id, newPost);
+                if(newPost.error){
+                    console.log(newPost.error);
+                }
+                else{
+                    var postsManager = PostsManager.getInstance();
+                    postsManager.addPost(newPost.id, newPost);
+                }
             });
 
             socket.on('initCollection', function (collection) {
@@ -35,22 +37,18 @@ var socket;
         });
     }
 
-    getInitialState() {
-        var postsManager = PostsManager.getInstance();
-        var postsData = postsManager.getPosts();
-        return {
-            postsData: postsData
-        }
-    }
+
 
     render() {
         return (
-            <div className="feed-container">
-                <button onClick={this._onAddPostButtonClick}>Push Post</button>
+            <div className="app-container">
+                <button className="generate-button" onClick={this._onAddPostButtonClick}>I can't wait for the damn interval! Push Post NOW!</button>
                 <br/>
-                <Infinite containerHeight={310} elementHeight={62}>
-                    {this._renderPosts() }
-                </Infinite>
+                <div className="feed-container">
+                    <Infinite containerHeight={335} elementHeight={67}>
+                        {this._renderPosts() }
+                    </Infinite>
+                </div>
             </div>
         )
     }

@@ -20,10 +20,10 @@ export default class PostItem extends React.Component{
         return <div className="post-item" ref={(root) => {this._root = root;}}>
                     <Link to={linkStr}>
                         <div className="profile-details">
-                            <span className="avatar-placeholder">
+                            <span className="avatar-container">
                                 <img src={currentPost.avatar} />
                             </span>
-                            <span className="profile-text">
+                            <span className="details-text">
                                 <span className="firstName">Name: {currentPost.firstName} {currentPost.lastName}</span>
                                 <br/>
                                 <span className="firstName">Age: {currentPost.age}</span>

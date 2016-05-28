@@ -34,23 +34,15 @@ var _namePool = {
 
 var _totalCount = _collection.length;
 
-
-
 io.on('connection', function(socket){
     console.log('client app connected');
 
+    var postGenerator = setInterval(function () {
+        generatePost(socket, postGenerator);
+    }, 60000);
+
     socket.on('generatePost', function () {
-        _totalCount++;
-        var newPost = {
-            id: "Post"+_totalCount,
-            avatar: _avatarPool[Math.floor(Math.random() * _avatarPool.length)],
-            firstName: _namePool.names[Math.floor(Math.random() * _namePool.names.length)],
-            lastName: _namePool.surnames[Math.floor(Math.random() * _namePool.surnames.length)],
-            age: Math.floor((Math.random() * 99)+1)
-        };
-        _collection.push(newPost);
-        socket.emit('newPost', newPost);
-        console.log('post added:');
+       generatePost(socket, _totalCount, postGenerator);
     });
 
     socket.on('pullCollection', function () {
@@ -62,4 +54,25 @@ io.on('connection', function(socket){
 http.listen(8080, function(){
     console.log('listening on *:8080');
 });
+
+function generatePost(socket, postGenerator){
+    if(_totalCount < 5000){
+        _totalCount++;
+        var newPost = {
+            id: "Post"+_totalCount,
+            avatar: _avatarPool[Math.floor(Math.random() * _avatarPool.length)],
+            firstName: _namePool.names[Math.floor(Math.random() * _namePool.names.length)],
+            lastName: _namePool.surnames[Math.floor(Math.random() * _namePool.surnames.length)],
+            age: Math.floor((Math.random() * 99)+1)
+        };
+        _collection.push(newPost);
+        socket.emit('newPost', newPost);
+        console.log('post added');
+    }
+    else{
+        clearInterval(postGenerator);
+        console.log("Server full, generator stopped.");
+        socket.emit('newPost', {error: "server capacity reached"});
+    }
+}
 

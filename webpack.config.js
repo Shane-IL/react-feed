@@ -1,7 +1,7 @@
 module.exports = {
-    entry: './src/app.js',
+    entry: './js/src/app.js',
     output: {
-        filename: './build/app.js'
+        filename: './js/build/app.js'
     },
     module: {
         noParse: ['ws'],
@@ -9,7 +9,7 @@ module.exports = {
             {
                 test: /\.js?$/,
                 loader: 'babel-loader',
-                exclude: /nose_modules/,
+                exclude: /node_modules/,
                 query: {
                     plugins: ['transform-decorators-legacy' ],
                     presets: ['es2015', 'react', 'stage-0']
