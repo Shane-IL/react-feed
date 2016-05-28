@@ -4,6 +4,7 @@ module.exports = {
         filename: './build/app.js'
     },
     module: {
+        noParse: ['ws'],
         loaders: [
             {
                 test: /\.js?$/,
@@ -15,5 +16,6 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    externals: ['ws']
 };

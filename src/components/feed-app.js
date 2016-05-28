@@ -1,15 +1,36 @@
-import React from 'react';
-import PostsManager from '../managers/posts-manager';
+import $ from 'jquery';
 import _ from 'lodash';
-import PostItem from '../components/post-item';
-import Mobx from 'mobx';
 import {observer} from "mobx-react";
 import Infinite from "react-infinite";
+import io from 'socket.io-client/socket.io'
+import Mobx from 'mobx';
+import PostItem from '../components/post-item';
+import PostsManager from '../managers/posts-manager';
+import React from 'react';
 window.PostsManager = PostsManager;
 
-var DummyServer = require('../dummy-server.js').DummyServer;
+var socket;
 
 @observer export default class FeedApp extends React.Component{
+
+    componentDidMount() {
+        socket = io.connect('http://localhost:8080');
+
+        socket.emit('pullCollection');
+
+        socket.on('newPost', function (newPost) {
+            console.log(newPost);
+            var postsManager = PostsManager.getInstance();
+            postsManager.addPost(newPost.id, newPost);
+        });
+
+        socket.on('initCollection', function (collection) {
+            var postsManager = PostsManager.getInstance();
+            $.each(collection, function (i, post) {
+                postsManager.addPost(post.id, post);
+            })
+        });
+    }
 
     getInitialState() {
         var postsManager = PostsManager.getInstance();
@@ -37,14 +58,11 @@ var DummyServer = require('../dummy-server.js').DummyServer;
     }
 
     _onAddPostButtonClick() {
-        var postsManager = PostsManager.getInstance();
-        var newPost = DummyServer.generatePostData(1)[0];
-        postsManager.addPost(newPost.id, newPost);
+        socket.emit('generatePost', 1);
     }
 
     _renderPosts() {
-        //TODO: Find better way to reverse order so new posts render at top, this feels hackey.
-        //TODO:
+        //TODO: Find better way to reverse order so new posts render at top, this feels hacky.
         return _.reverse(_.map(PostsManager.getInstance().getPosts(), function (post, id) {
             return <PostItem key= {id} post={post}/>
         }))

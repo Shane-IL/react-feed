@@ -22,7 +22,7 @@ module.exports.DummyServer = new function () {
             });
         }
         $.each(newItems, function (i, item) {
-            _collection.unshift(item)
+            _collection.push(item)
         });
         return newItems;
 

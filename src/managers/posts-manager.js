@@ -1,5 +1,4 @@
-var DummyServer = require('../dummy-server.js').DummyServer;
-var  Mobx  =  require('mobx');
+import Mobx from 'mobx';
 
 export default class PostsManager
 {
