@@ -15,6 +15,7 @@ var socket;
         socket = io.connect('http://localhost:8080');
 
         socket.on('connect', function(){
+
             console.log('feed connected');
             socket.emit('pullCollection');
 
@@ -36,8 +37,6 @@ var socket;
             });
         });
     }
-
-
 
     render() {
         return (
@@ -63,6 +62,4 @@ var socket;
             return <PostItem key= {id} post={post}/>
         }))
     }
-
-
 };

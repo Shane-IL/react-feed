@@ -3,8 +3,6 @@ import PostsManager from '../managers/posts-manager';
 import React from 'react';
 window.PostsManager = PostsManager;
 
-var socket;
-
 export default class Main extends React.Component{
 
     static getInitialState() {

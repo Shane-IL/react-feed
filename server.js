@@ -2,8 +2,6 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
-
 var _collection = [
     {id: "Post1", firstName: "Bob", lastName: "Smith", age: 21, avatar: "http://media-elerium.cursecdn.com/avatars/thumbnails/37/990/55/55/635959738381142622.jpeg"},
     {id: "Post2", firstName: "Johnny", lastName: "MacFly", age: 42, avatar: "http://media-hearth.cursecdn.com/avatars/thumbnails/256/504/55/55/635762192493373586.png"},
